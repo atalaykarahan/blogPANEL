@@ -53,28 +53,6 @@ export function DraftDataTable() {
 
     const columns: ColumnDef<BlogModel>[] = [
         {
-            id: "select",
-            header: ({table}) => (
-                <Checkbox
-                    checked={
-                        table.getIsAllPageRowsSelected() ||
-                        (table.getIsSomePageRowsSelected() && "indeterminate")
-                    }
-                    onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                    aria-label="Select all"
-                />
-            ),
-            cell: ({row}) => (
-                <Checkbox
-                    checked={row.getIsSelected()}
-                    onCheckedChange={(value) => row.toggleSelected(!!value)}
-                    aria-label="Select row"
-                />
-            ),
-            enableSorting: false,
-            enableHiding: false,
-        },
-        {
             accessorKey: "blog_title",
             header: "Title",
             cell: ({row}) => {
@@ -204,11 +182,6 @@ export function DraftDataTable() {
             </div>
 
             <div className="flex items-center flex-wrap gap-4 px-4 py-4">
-                <div className="flex-1 text-sm text-muted-foreground whitespace-nowrap">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
-
                 <div className="flex gap-2  items-center">
                     <Button
                         variant="outline"

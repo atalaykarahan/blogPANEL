@@ -31,9 +31,11 @@ import {Icon} from "@iconify/react";
 import {cn} from "@/lib/utils";
 import {blogService} from "@/app/api/services/blog.Service";
 import {BlogModel} from "@/models/blog";
+import {categoryService} from "@/app/api/services/category.Service";
+import {CategoryModel} from "@/models/category";
 
 
-export function PublishDataTable() {
+export function CategoryDataTable() {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [rowSelection, setRowSelection] = React.useState({});
     const [allData, setAllData] = React.useState([]);
@@ -45,23 +47,23 @@ export function PublishDataTable() {
 
 
     const fetchData = async () => {
-        const response = await blogService.getAllPublishedBlogs();
+        const response = await categoryService.getAll();
         if (response.status === 200) {
             setAllData(response.data)
         }
     }
 
-    const columns: ColumnDef<BlogModel>[] = [
+    const columns: ColumnDef<CategoryModel>[] = [
         {
-            accessorKey: "blog_title",
-            header: "Title",
+            accessorKey: "category_name",
+            header: "Name",
             cell: ({row}) => {
-                const blogTitle = row.original.blog_title;
+                const categoryName = row.original.category_name;
                 return (
                     <div className="font-medium text-card-foreground/80">
                         <div className="flex space-x-3 rtl:space-x-reverse items-center">
                         <span className="text-sm text-card-foreground whitespace-nowrap">
-              {blogTitle ?? "Unknown Title"}
+              {categoryName ?? "Unknown Name"}
             </span>
                         </div>
                     </div>
@@ -69,16 +71,10 @@ export function PublishDataTable() {
             }
         },
         {
-            accessorKey: "blog_slug",
-            header: "Slug",
-            cell: ({row}) => <div className="lowercase whitespace-nowrap">{row.getValue("blog_slug")}</div>,
-        },
-        {
             id: "actions",
             enableHiding: false,
             cell: ({row}) => {
-                const blog = row.original;
-                console.log(blog);
+                const category = row.original;
                 return (
                     <div className=" text-end">
                         <DropdownMenu>
@@ -92,7 +88,7 @@ export function PublishDataTable() {
                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                 <DropdownMenuSeparator/>
                                 <DropdownMenuItem
-                                    onClick={() => router.push(`/en/editblog/?id=${blog.blog_id}`)}>Edit</DropdownMenuItem>
+                                    onClick={() => console.log('pop up aç')}>Edit</DropdownMenuItem>
                                 <DropdownMenuItem>Delete</DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -122,10 +118,10 @@ export function PublishDataTable() {
         <>
             <div className="flex items-center flex-wrap gap-2  px-4">
                 <Input
-                    placeholder="Search by title..."
-                    value={(table.getColumn("blog_title")?.getFilterValue() as string) || ""}
+                    placeholder="Search by name..."
+                    value={(table.getColumn("category_name")?.getFilterValue() as string) || ""}
                     onChange={(event) =>
-                        table.getColumn("blog_title")?.setFilterValue(event.target.value)
+                        table.getColumn("category_name")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm min-w-[200px] h-10"
                 />
@@ -219,4 +215,4 @@ export function PublishDataTable() {
     );
 }
 
-export default PublishDataTable;
+export default CategoryDataTable;

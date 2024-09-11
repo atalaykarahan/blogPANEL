@@ -1,15 +1,15 @@
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import PublishDataTable from "@/app/[lang]/(pages)/(blogs)/blogs/publish-table";
+import CategoryDataTable from "@/app/[lang]/(pages)/(categories)/categories/category-table";
 
-const BlogsPage = () => {
+const CategoriesPage = () => {
     return (
         <div>
             <Card>
                 <CardHeader>
-                    <CardTitle>All Published Blogs</CardTitle>
+                    <CardTitle>All Categories</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                    <PublishDataTable/>
+                    <CategoryDataTable/>
                 </CardContent>
             </Card>
 
@@ -17,4 +17,4 @@ const BlogsPage = () => {
     );
 };
 
-export default BlogsPage;
+export default CategoriesPage;
