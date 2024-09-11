@@ -75,7 +75,12 @@ class BlogService {
     async getAllPublishedBlogs() {
         return await axios.get(`/blogs/status/2`,);
     };
+    //#endregion
 
+    //#region GET ALL DRAFT BLOGS
+    async getAllDraftBlogs() {
+        return await axios.get(`/blogs/status/1`,);
+    };
     //#endregion
 
 }

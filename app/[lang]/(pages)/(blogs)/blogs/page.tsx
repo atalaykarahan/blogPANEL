@@ -1,6 +1,6 @@
 "use client"
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import BasicDataTable from "@/app/[lang]/(pages)/(blogs)/blogs/basic-table";
+import PublishDataTable from "@/app/[lang]/(pages)/(blogs)/blogs/publish-table";
 
 const BlogsPage = () => {
     return (
@@ -10,7 +10,7 @@ const BlogsPage = () => {
                     <CardTitle>All Published Blogs</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                    <BasicDataTable/>
+                    <PublishDataTable/>
                 </CardContent>
             </Card>
 

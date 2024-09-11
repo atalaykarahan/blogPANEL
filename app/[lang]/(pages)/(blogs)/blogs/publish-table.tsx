@@ -33,7 +33,7 @@ import {blogService} from "@/app/api/services/blog.Service";
 import {BlogModel} from "@/models/blog";
 
 
-export function BasicDataTable() {
+export function PublishDataTable() {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [rowSelection, setRowSelection] = React.useState({});
     const [allData, setAllData] = React.useState([]);
@@ -45,7 +45,7 @@ export function BasicDataTable() {
 
 
     const fetchData = async () => {
-        const response = await blogService.getAll();
+        const response = await blogService.getAllPublishedBlogs();
         if (response.status === 200) {
             setAllData(response.data)
         }
@@ -246,4 +246,4 @@ export function BasicDataTable() {
     );
 }
 
-export default BasicDataTable;
+export default PublishDataTable;
