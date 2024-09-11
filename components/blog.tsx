@@ -10,6 +10,7 @@ import MarkdownIt from 'markdown-it';
 import {useEffect, useState} from "react";
 import {BlogModel} from "@/models/blog";
 import {categoryService} from "@/app/api/services/category.Service";
+import {blogService} from "@/app/api/services/blog.Service";
 
 interface OptionType {
     value: string;
@@ -95,6 +96,35 @@ const BlogComponent: React.FC<BlogModel> = ({
         setBlogDescription(text)
     }
 
+    //#region IMAGE FUNCTIONS
+    const handleEditorImageUpload = async (file: any) => {
+        const fileSizeInMB = file.size / (1024 * 1024);
+        // Eğer dosya 1 MB'tan büyükse hata döndürün
+        if (fileSizeInMB > 1) {
+            alert("Resim boyutu 1 MB'ı aşmamalıdır.");
+            return Promise.reject("Resim boyutu çok büyük");
+        }
+        const uploadedUrl = await handleImageUpload(file);
+        return uploadedUrl;
+    };
+
+    const handleImageUpload = async (file: any) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        try {
+            const response = await blogService.uploadImage(formData);
+
+            console.log(response);
+            return response.data;
+            // return response.data.imageUrl; // Sunucudan dönen resim URL'si
+        } catch (error) {
+            console.error('Image upload failed:', error);
+            return null;
+        }
+    };
+
+    //#endregion
+
     //#endregion
 
     useEffect(() => {
@@ -153,7 +183,8 @@ const BlogComponent: React.FC<BlogModel> = ({
                 <div className="col-span-2  flex flex-col gap-2">
                     <Label>Blog Content</Label>
                     <MdEditor style={{width: '100%', height: '400px'}} renderHTML={text => mdParser.render(text)}
-                              onChange={handleEditorChange} value={blogDescription}/>
+                              onChange={handleEditorChange} value={blogDescription}
+                              onImageUpload={handleEditorImageUpload}/>
                 </div>
                 <div className="col-span-2  flex flex-col gap-2">
                     <Label>Tags</Label>
