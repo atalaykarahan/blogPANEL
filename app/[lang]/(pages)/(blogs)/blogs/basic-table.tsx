@@ -13,6 +13,7 @@ import {
     SortingState,
     useReactTable,
 } from "@tanstack/react-table";
+import {useRouter} from "next/navigation";
 
 import {Button} from "@/components/ui/button";
 import {Checkbox} from "@/components/ui/checkbox";
@@ -31,80 +32,12 @@ import {cn} from "@/lib/utils";
 import {blogService} from "@/app/api/services/blog.Service";
 import {BlogModel} from "@/models/blog";
 
-const columns: ColumnDef<BlogModel>[] = [
-    {
-        id: "select",
-        header: ({table}) => (
-            <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && "indeterminate")
-                }
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                aria-label="Select all"
-            />
-        ),
-        cell: ({row}) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-            />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-    },
-    {
-        accessorKey: "blog_title",
-        header: "Title",
-        cell: ({row}) => {
-            const blogTitle = row.original.blog_title;
-            return (
-                <div className="font-medium text-card-foreground/80">
-                    <div className="flex space-x-3 rtl:space-x-reverse items-center">
-                        <span className="text-sm text-card-foreground whitespace-nowrap">
-              {blogTitle ?? "Unknown Title"}
-            </span>
-                    </div>
-                </div>
-            )
-        }
-    },
-    {
-        accessorKey: "blog_slug",
-        header: "Slug",
-        cell: ({row}) => <div className="lowercase whitespace-nowrap">{row.getValue("blog_slug")}</div>,
-    },
-    {
-        id: "actions",
-        enableHiding: false,
-        cell: ({row}) => {
-            return (
-                <div className=" text-end">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Open menu</span>
-                                <MoreHorizontal className="h-4 w-4"/>
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuSeparator/>
-                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                            <DropdownMenuItem>Delete</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-            );
-        },
-    },
-];
 
 export function BasicDataTable() {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [rowSelection, setRowSelection] = React.useState({});
     const [allData, setAllData] = React.useState([]);
+    const router = useRouter();
 
     useEffect(() => {
         fetchData()
@@ -117,6 +50,79 @@ export function BasicDataTable() {
             setAllData(response.data)
         }
     }
+
+    const columns: ColumnDef<BlogModel>[] = [
+        {
+            id: "select",
+            header: ({table}) => (
+                <Checkbox
+                    checked={
+                        table.getIsAllPageRowsSelected() ||
+                        (table.getIsSomePageRowsSelected() && "indeterminate")
+                    }
+                    onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                    aria-label="Select all"
+                />
+            ),
+            cell: ({row}) => (
+                <Checkbox
+                    checked={row.getIsSelected()}
+                    onCheckedChange={(value) => row.toggleSelected(!!value)}
+                    aria-label="Select row"
+                />
+            ),
+            enableSorting: false,
+            enableHiding: false,
+        },
+        {
+            accessorKey: "blog_title",
+            header: "Title",
+            cell: ({row}) => {
+                const blogTitle = row.original.blog_title;
+                return (
+                    <div className="font-medium text-card-foreground/80">
+                        <div className="flex space-x-3 rtl:space-x-reverse items-center">
+                        <span className="text-sm text-card-foreground whitespace-nowrap">
+              {blogTitle ?? "Unknown Title"}
+            </span>
+                        </div>
+                    </div>
+                )
+            }
+        },
+        {
+            accessorKey: "blog_slug",
+            header: "Slug",
+            cell: ({row}) => <div className="lowercase whitespace-nowrap">{row.getValue("blog_slug")}</div>,
+        },
+        {
+            id: "actions",
+            enableHiding: false,
+            cell: ({row}) => {
+                const blog = row.original;
+                console.log(blog);
+                return (
+                    <div className=" text-end">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                    <span className="sr-only">Open menu</span>
+                                    <MoreHorizontal className="h-4 w-4"/>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                <DropdownMenuSeparator/>
+                                <DropdownMenuItem
+                                    onClick={() => router.push(`/editblog/?id=${blog.blog_id}`)}>Edit</DropdownMenuItem>
+                                <DropdownMenuItem>Delete</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+                );
+            },
+        },
+    ];
 
 
     const table = useReactTable({
