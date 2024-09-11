@@ -9,5 +9,5 @@ const dictionaries = {
 
 
 export const getDictionary = async (locale: keyof typeof dictionaries) => {
-  return dictionaries[locale]();
+  return dictionaries["en"]();
 };

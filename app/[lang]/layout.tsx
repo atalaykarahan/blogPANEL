@@ -20,11 +20,11 @@ export const metadata = {
 
 export default function RootLayout({ children, params: { lang } }: { children: React.ReactNode; params: { lang: string } }) {
   return (
-    <html lang={lang}>
+    <html lang={"en"}>
       <AuthProvider>
         <TanstackProvider>
           <Providers>
-            <DirectionProvider lang={lang}>{children}</DirectionProvider>
+            <DirectionProvider lang={"en"}>{children}</DirectionProvider>
           </Providers>
         </TanstackProvider>
       </AuthProvider>

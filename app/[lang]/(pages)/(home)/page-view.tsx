@@ -1,8 +1,7 @@
 "use client";
 
-
-import UsersStat from "@/components/landing-page/color-schemas/users-stat";
 import ReportsSnapshot from "@/components/reports-snapshot";
+import UsersStat from "@/app/[lang]/(pages)/(home)/components/users-stat";
 
 
 interface DashboardPageViewProps {
