@@ -114,7 +114,7 @@ export function BasicDataTable() {
                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                 <DropdownMenuSeparator/>
                                 <DropdownMenuItem
-                                    onClick={() => router.push(`/editblog/?id=${blog.blog_id}`)}>Edit</DropdownMenuItem>
+                                    onClick={() => router.push(`/en/editblog/?id=${blog.blog_id}`)}>Edit</DropdownMenuItem>
                                 <DropdownMenuItem>Delete</DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
