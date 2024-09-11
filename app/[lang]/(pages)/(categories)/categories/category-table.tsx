@@ -33,6 +33,7 @@ import {blogService} from "@/app/api/services/blog.Service";
 import {BlogModel} from "@/models/blog";
 import {categoryService} from "@/app/api/services/category.Service";
 import {CategoryModel} from "@/models/category";
+import CreateCategoryForm from "@/app/[lang]/(pages)/(categories)/categories/create-form";
 
 
 export function CategoryDataTable() {
@@ -125,6 +126,7 @@ export function CategoryDataTable() {
                     }
                     className="max-w-sm min-w-[200px] h-10"
                 />
+                <CreateCategoryForm refreshTable={fetchData}/>
             </div>
             <div>
                 <Table>
