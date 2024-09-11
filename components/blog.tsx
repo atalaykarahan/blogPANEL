@@ -11,6 +11,7 @@ import {useEffect, useState} from "react";
 import {BlogModel} from "@/models/blog";
 import {categoryService} from "@/app/api/services/category.Service";
 import {blogService} from "@/app/api/services/blog.Service";
+import {useRouter} from "next/navigation";
 
 interface OptionType {
     value: string;
@@ -58,8 +59,10 @@ const BlogComponent: React.FC<BlogModel> = ({
             fontSize: "14px",
         }),
     };
+    const router = useRouter();
     //#endregion
 
+    //#region STATES
     const [blogTitle, setBlogTitle] = useState(blog_title || '');
     const [blogSlug, setBlogSlug] = useState(blog_slug || '');
     const [blogCategory, setBlogCategory] = useState(categories || []);
@@ -67,7 +70,8 @@ const BlogComponent: React.FC<BlogModel> = ({
     const [blogTags, setBlogTags] = useState(tags || []);
     const [blogStatus, setBlogStatus] = useState(status_id || '');
     const [categoriesData, setCategoriesData] = useState([]);
-
+    const [redirect, setRedirect] = useState<boolean>(false);
+    //#endregion
 
     //#region FUNCTIONS
     const handleSlugChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,11 +129,17 @@ const BlogComponent: React.FC<BlogModel> = ({
 
     //#endregion
 
-    //#endregion
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+    async function handleSubmitForm(ev: any) {
+        ev.preventDefault();
+        if (blog_id) {
+            // update kodu
+            await blogService.update(blog_id, blogTitle, blogSlug, blogDescription, blogCategory, blogTags, blogStatus);
+        } else {
+            // insert kodu
+            await blogService.create(blogTitle, blogSlug, blogDescription, blogCategory, blogTags, blogStatus);
+        }
+        setRedirect(true);
+    }
 
     const fetchData = async () => {
         const response = await categoryService.getAll();
@@ -142,8 +152,20 @@ const BlogComponent: React.FC<BlogModel> = ({
         }
     }
 
+    //#endregion
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
+    if (redirect) {
+        router.push('/en/blogs');
+        return null;
+    }
+
     return (
-        <form>
+        <form onSubmit={handleSubmitForm}>
             <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2  flex flex-col gap-2">
                     <Label htmlFor="title">Title</Label>
@@ -152,7 +174,7 @@ const BlogComponent: React.FC<BlogModel> = ({
                 </div>
                 <div className="col-span-2  flex flex-col gap-2">
                     <Label htmlFor="slug">Slug</Label>
-                    <Input type="email" placeholder="Enter slug url" id="slug" value={blogSlug}
+                    <Input type="text" placeholder="Enter slug url" id="slug" value={blogSlug}
                            onChange={handleSlugChange}/>
                 </div>
                 <div className="col-span-2  flex flex-col gap-2">
