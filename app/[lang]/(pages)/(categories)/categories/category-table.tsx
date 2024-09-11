@@ -34,6 +34,7 @@ import {BlogModel} from "@/models/blog";
 import {categoryService} from "@/app/api/services/category.Service";
 import {CategoryModel} from "@/models/category";
 import CreateCategoryForm from "@/app/[lang]/(pages)/(categories)/categories/create-form";
+import DeleteCategoryDialog from "@/app/[lang]/(pages)/(categories)/categories/delete-category";
 
 
 export function CategoryDataTable() {
@@ -90,7 +91,9 @@ export function CategoryDataTable() {
                                 <DropdownMenuSeparator/>
                                 <DropdownMenuItem
                                     onClick={() => console.log('pop up aç')}>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
+                                <DeleteCategoryDialog categoryName={category.category_name ?? ''}
+                                                      categoryId={category.category_id ?? ''}/>
+                                {/*<DropdownMenuItem>Delete</DropdownMenuItem>*/}
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
