@@ -4,6 +4,10 @@ import Select from "react-select";
 import {Label} from "@/components/ui/label";
 import {Button} from '@/components/ui/button'
 import makeAnimated from "react-select/animated";
+import MdEditor from 'react-markdown-editor-lite';
+import 'react-markdown-editor-lite/lib/index.css';
+import MarkdownIt from 'markdown-it';
+import {useState} from "react";
 
 interface OptionType {
     value: string;
@@ -11,9 +15,11 @@ interface OptionType {
     isFixed?: boolean;
     icon?: string;
 }
-
+const mdParser = new MarkdownIt();
+mdParser.use(require('markdown-it-ins')); // for underline settings
 const BlogComponent = () => {
     const animatedComponents = makeAnimated();
+    const [blogDescription, setBlogDescription] = useState(  '');
 
     const fruits: OptionType[] = [
         {value: "chocolate", label: "Chocolate"},
@@ -39,6 +45,11 @@ const BlogComponent = () => {
             fontSize: "14px",
         }),
     };
+
+    function handleEditorChange({html, text}: any) {
+        // console.log('handleEditorChange', html, text);
+        setBlogDescription(text)
+    }
     return (
         <form>
             <div className="grid grid-cols-2 gap-4">
@@ -64,6 +75,14 @@ const BlogComponent = () => {
                         classNamePrefix="select"
                     />
                 </div>
+
+                <div className="col-span-2  flex flex-col gap-2">
+                    <Label>Blog Content</Label>
+                   {/*buraya koyucaksın*/}
+                    <MdEditor style={{width: '100%', height: '400px'}} renderHTML={text => mdParser.render(text)}
+                              onChange={handleEditorChange} value={blogDescription}/>
+                </div>
+
 
                 <div className="col-span-2  flex flex-col gap-2">
                     <Label>Tags</Label>
