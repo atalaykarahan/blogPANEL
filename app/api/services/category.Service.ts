@@ -1,7 +1,4 @@
-import {getMyCookie} from "@/lib/get-my-cookie";
 import axios from "@/app/api/axios";
-import {CategoryModel} from "@/models/category";
-import {TagModel} from "@/models/tag";
 
 
 class CategoryService {
@@ -41,7 +38,7 @@ class CategoryService {
     //#endregion
 
     //#region GET ALL
-    async getALL() {
+    async getAll() {
         return await axios.get(`/categories`,);
     };
 
