@@ -2,10 +2,9 @@
 import * as React from "react";
 import {useEffect} from "react";
 
-import {ChevronDown, MoreHorizontal} from "lucide-react";
+import {MoreHorizontal} from "lucide-react";
 import {
     ColumnDef,
-    ColumnFiltersState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -13,14 +12,12 @@ import {
     getSortedRowModel,
     SortingState,
     useReactTable,
-    VisibilityState,
 } from "@tanstack/react-table";
 
 import {Button} from "@/components/ui/button";
 import {Checkbox} from "@/components/ui/checkbox";
 import {
     DropdownMenu,
-    DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
@@ -31,7 +28,6 @@ import {Input} from "@/components/ui/input";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table";
 import {Icon} from "@iconify/react";
 import {cn} from "@/lib/utils";
-// import {Data} from "hast";
 import {blogService} from "@/app/api/services/blog.Service";
 import {BlogModel} from "@/models/blog";
 

@@ -1,64 +1,97 @@
+"use client";
 import {Input} from "@/components/ui/input";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {Checkbox} from "@/components/ui/checkbox";
+import Select from "react-select";
 import {Label} from "@/components/ui/label";
 import {Button} from '@/components/ui/button'
+import makeAnimated from "react-select/animated";
+
+interface OptionType {
+    value: string;
+    label: string;
+    isFixed?: boolean;
+    icon?: string;
+}
 
 const BlogComponent = () => {
+    const animatedComponents = makeAnimated();
+
+    const fruits: OptionType[] = [
+        {value: "chocolate", label: "Chocolate"},
+        {value: "strawberry", label: "Strawberry"},
+        {value: "vanilla", label: "Vanilla"},
+        {value: "orange", label: "Orange"},
+        {value: "apple", label: "Apple"},
+    ];
+    const styles = {
+        multiValue: (base: any, state: any) => {
+            return state.data.isFixed ? {...base, opacity: "0.5"} : base;
+        },
+        multiValueLabel: (base: any, state: any) => {
+            return state.data.isFixed
+                ? {...base, color: "#626262", paddingRight: 6}
+                : base;
+        },
+        multiValueRemove: (base: any, state: any) => {
+            return state.data.isFixed ? {...base, display: "none"} : base;
+        },
+        option: (provided: any, state: any) => ({
+            ...provided,
+            fontSize: "14px",
+        }),
+    };
     return (
         <form>
             <div className="grid grid-cols-2 gap-4">
 
                 <div className="col-span-2  flex flex-col gap-2">
-                    <Label htmlFor="fullName5">Full Name</Label>
-                    <Input type="text" placeholder="Your Name" id="fullName5"/>
+                    <Label htmlFor="title">Title</Label>
+                    <Input type="text" placeholder="Enter small title" id="title"/>
                 </div>
                 <div className="col-span-2  flex flex-col gap-2">
-                    <Label htmlFor="email5">Email Address</Label>
-                    <Input type="email" placeholder="Your Email" id="email5"/>
+                    <Label htmlFor="slug">Slug</Label>
+                    <Input type="email" placeholder="Enter slug url" id="slug"/>
                 </div>
-                <div className="col-span-2 lg:col-span-1  flex flex-col gap-2">
-                    <Label htmlFor="password5">Password</Label>
-                    <Input type="password" placeholder="type password" id="password5"/>
-                </div>
-                <div className="col-span-2 lg:col-span-1  flex flex-col gap-2">
-                    <Label htmlFor="phoneNumber5">Phone Number</Label>
-                    <Input type="number" placeholder="Your Number" id="phoneNumber5"/>
-                </div>
-                <div className="col-span-2 lg:col-span-1 flex flex-col gap-2">
-                    <Label htmlFor="state">State</Label>
-                    <Select>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select State"/>
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="alberta">Alberta</SelectItem>
-                            <SelectItem value="british">British Columbia</SelectItem>
-                            <SelectItem value="manitoba">Manitoba</SelectItem>
-                            <SelectItem value="brunswick">New Brunswick</SelectItem>
-                            <SelectItem value="ontario">Ontario</SelectItem>
-                        </SelectContent>
-                    </Select>
+                <div className="col-span-2  flex flex-col gap-2">
+                    <Label>Category</Label>
+                    <Select
+                        isClearable={true}
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        isMulti
+                        options={fruits}
+                        styles={styles}
+                        className="react-select"
+                        classNamePrefix="select"
+                    />
                 </div>
 
-                <div className="col-span-2 lg:col-span-1  flex flex-col gap-2">
-                    <Label htmlFor="zipCode5">Zip Code</Label>
-                    <Input type="number" placeholder="Type Code" id="zipCode5"/>
+                <div className="col-span-2  flex flex-col gap-2">
+                    <Label>Tags</Label>
+                    <Select
+                        isClearable={true}
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        isMulti
+                        options={fruits}
+                        styles={styles}
+                        className="react-select"
+                        classNamePrefix="select"
+                    />
                 </div>
-
-                <div className="col-span-2">
-                    <div className="flex items-center gap-1.5">
-                        <Checkbox id="term3" size="sm" color="default"/>
-                        <Label
-                            htmlFor="term3"
-                            className="text-base text-muted-foreground font-normal"
-                        >
-                            Agree to terms and conditions
-                        </Label>
-                    </div>
+                <div className="col-span-2  flex flex-col gap-2">
+                    <Label>Status</Label>
+                    <Select
+                        isClearable={true}
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        options={fruits}
+                        styles={styles}
+                        className="react-select"
+                        classNamePrefix="select"
+                    />
                 </div>
                 <div className="col-span-2">
-                    <Button type="submit">Submit Form</Button>
+                    <Button type="submit">SAVE BLOG</Button>
                 </div>
             </div>
         </form>
