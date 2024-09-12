@@ -12,6 +12,7 @@ import {BlogModel} from "@/models/blog";
 import {categoryService} from "@/app/api/services/category.Service";
 import {blogService} from "@/app/api/services/blog.Service";
 import {useRouter} from "next/navigation";
+import {tagService} from "@/app/api/services/tag.Service";
 
 interface OptionType {
     value: string;
@@ -33,11 +34,6 @@ const BlogComponent: React.FC<BlogModel> = ({
                                             }) => {
     //#region SETTINGS & OPTIONS
     const animatedComponents = makeAnimated();
-    const tagsData: OptionType[] = [
-        {value: "1", label: "Seyehat"},
-        {value: "2", label: "Ekonomi"},
-        {value: "3", label: "Kariyer"}
-    ];
     const statusData: OptionType[] = [
         {value: "1", label: "Draft"},
         {value: "2", label: "Publish"}
@@ -70,6 +66,7 @@ const BlogComponent: React.FC<BlogModel> = ({
     const [blogTags, setBlogTags] = useState(tags || []);
     const [blogStatus, setBlogStatus] = useState(status_id || '');
     const [categoriesData, setCategoriesData] = useState([]);
+    const [tagsData, setTagsData] = useState([]);
     const [redirect, setRedirect] = useState<boolean>(false);
     //#endregion
 
@@ -142,13 +139,21 @@ const BlogComponent: React.FC<BlogModel> = ({
     }
 
     const fetchData = async () => {
-        const response = await categoryService.getAll();
-        if (response.status === 200) {
-            const formattedCategories = response.data.map((category: any) => ({
+        const responseCategory = await categoryService.getAll();
+        if (responseCategory.status === 200) {
+            const formattedCategories = responseCategory.data.map((category: any) => ({
                 label: category.category_name,
                 value: category.category_id
             }));
             setCategoriesData(formattedCategories);
+        }
+        const responseTag = await tagService.getAll();
+        if (responseTag.status === 200) {
+            const formattedTags = responseTag.data.map((tag: any) => ({
+                label: tag.tag_name,
+                value: tag.tag_id
+            }));
+            setTagsData(formattedTags);
         }
     }
 
