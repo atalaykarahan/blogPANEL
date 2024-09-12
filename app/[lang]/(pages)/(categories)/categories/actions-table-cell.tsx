@@ -20,6 +20,7 @@ interface ActionsTableCellProps {
 
 const ActionsTableCell: React.FC<ActionsTableCellProps> = ({category, refreshTable}) => {
     const [deleteDialog, setDeleteDialog] = useState(false);
+    const [editDialog, setEditDialog] = useState(false);
     return (
         <>
             <div className=" text-end">
@@ -34,7 +35,7 @@ const ActionsTableCell: React.FC<ActionsTableCellProps> = ({category, refreshTab
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator/>
                         <DropdownMenuItem
-                            onClick={() => console.log('pop up aç')}>Edit</DropdownMenuItem>
+                            onClick={() => setEditDialog(true)}>Edit</DropdownMenuItem>
                         <DropdownMenuItem
                             onClick={() => setDeleteDialog(true)}>Delete</DropdownMenuItem>
                     </DropdownMenuContent>
