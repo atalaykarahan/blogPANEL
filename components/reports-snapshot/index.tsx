@@ -14,6 +14,8 @@ import Blog from "@/components/blog";
 import {BlogModel} from "@/models/blog";
 import {CategoryModel} from "@/models/category";
 import {categoryService} from "@/app/api/services/category.Service";
+import {TagModel} from "@/models/tag";
+import {tagService} from "@/app/api/services/tag.Service";
 
 const allUsersSeries = [
     {
@@ -46,9 +48,11 @@ const ReportsSnapshot = () => {
     const theme = themes.find((theme) => theme.name === config);
     const [blogResults, setBlogResults] = useState<BlogModel[]>([]);
     const [categoryResults, setCategoryResults] = useState<CategoryModel[]>([]);
+    const [tagResults, setTagResults] = useState<TagModel[]>([]);
     const [blogData, setBlogData] = useState<DashboardData[]>([{data: []}])
     const [draftData, setDraftData] = useState<DashboardData[]>([{data: []}])
     const [categoryData, setCategoryData] = useState<DashboardData[]>([{data: []}])
+    const [tagData, setTagData] = useState<DashboardData[]>([{data: []}])
 
 
     useEffect(() => {
@@ -58,6 +62,7 @@ const ReportsSnapshot = () => {
     const fetchData = async () => {
         await blogResponseHandler();
         await categoryResponseHandler();
+        await tagResponseHandler();
     }
 
 
@@ -90,7 +95,6 @@ const ReportsSnapshot = () => {
 
     const categoryResponseHandler = async () => {
         const monthlyCategoryCounts = new Array(12).fill(0);
-
         const categoryResponse = await categoryService.getAll();
         if (categoryResponse.status === 200) {
             setCategoryResults(categoryResponse.data)
@@ -102,7 +106,22 @@ const ReportsSnapshot = () => {
 
         }
         setCategoryData([{data: monthlyCategoryCounts}]);
+    }
 
+
+    const tagResponseHandler = async () => {
+        const monthlyTagCounts = new Array(12).fill(0);
+        const tagResponse = await tagService.getAll();
+        if (tagResponse.status === 200) {
+            setTagResults(tagResponse.data)
+            tagResponse.data.forEach((category: any) => {
+                const createdAt = new Date(category.createdAt);
+                const month = createdAt.getMonth(); // Ayları 0'dan başlatır (0: Ocak, 11: Aralık)
+                monthlyTagCounts[month]++;
+            });
+
+        }
+        setTagData([{data: monthlyTagCounts}]);
     }
 
     const primary = `hsl(${theme?.cssVars[mode === "dark" ? "dark" : "light"].primary})`;
@@ -126,7 +145,7 @@ const ReportsSnapshot = () => {
         {
             value: "tag",
             text: "total tags",
-            total: "21",
+            total: tagResults.length,
             color: "success",
         },
         {
@@ -149,7 +168,7 @@ const ReportsSnapshot = () => {
         },
         {
             value: "tag",
-            series: conversationSeries,
+            series: tagData,
             color: success,
         },
         {
