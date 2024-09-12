@@ -78,7 +78,7 @@ export function CategoryDataTable() {
             enableHiding: false,
             cell: ({row}) => {
                 const category = row.original;
-                return <ActionsTableCell category={category}/>
+                return <ActionsTableCell category={category} refreshTable={fetchData}/>
             },
         },
     ];

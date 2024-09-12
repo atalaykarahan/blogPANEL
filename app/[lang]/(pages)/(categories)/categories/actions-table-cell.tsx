@@ -15,9 +15,10 @@ import {useState} from "react";
 
 interface ActionsTableCellProps {
     category: CategoryModel;
+    refreshTable: () => void;
 }
 
-const ActionsTableCell: React.FC<ActionsTableCellProps> = ({category}) => {
+const ActionsTableCell: React.FC<ActionsTableCellProps> = ({category, refreshTable}) => {
     const [deleteDialog, setDeleteDialog] = useState(false);
     return (
         <>
@@ -43,7 +44,8 @@ const ActionsTableCell: React.FC<ActionsTableCellProps> = ({category}) => {
                 <DeleteCategoryDialog
                     isOpen={deleteDialog}
                     setIsOpen={setDeleteDialog}
-                    category={category}/>)}
+                    category={category}
+                    refreshTable={refreshTable}/>)}
         </>
     )
 }
