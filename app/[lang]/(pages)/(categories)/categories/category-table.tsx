@@ -35,6 +35,7 @@ import {categoryService} from "@/app/api/services/category.Service";
 import {CategoryModel} from "@/models/category";
 import CreateCategoryForm from "@/app/[lang]/(pages)/(categories)/categories/create-form";
 import DeleteCategoryDialog from "@/app/[lang]/(pages)/(categories)/categories/delete-category";
+import ActionsTableCell from "@/app/[lang]/(pages)/(categories)/categories/actions-table-cell";
 
 
 export function CategoryDataTable() {
@@ -77,27 +78,7 @@ export function CategoryDataTable() {
             enableHiding: false,
             cell: ({row}) => {
                 const category = row.original;
-                return (
-                    <div className=" text-end">
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" className="h-8 w-8 p-0">
-                                    <span className="sr-only">Open menu</span>
-                                    <MoreHorizontal className="h-4 w-4"/>
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                <DropdownMenuSeparator/>
-                                <DropdownMenuItem
-                                    onClick={() => console.log('pop up aç')}>Edit</DropdownMenuItem>
-                                <DeleteCategoryDialog categoryName={category.category_name ?? ''}
-                                                      categoryId={category.category_id ?? ''}/>
-                                {/*<DropdownMenuItem>Delete</DropdownMenuItem>*/}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </div>
-                );
+                return <ActionsTableCell category={category}/>
             },
         },
     ];
