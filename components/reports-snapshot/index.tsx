@@ -12,6 +12,8 @@ import {useEffect, useState} from "react";
 import {blogService} from "@/app/api/services/blog.Service";
 import Blog from "@/components/blog";
 import {BlogModel} from "@/models/blog";
+import {CategoryModel} from "@/models/category";
+import {categoryService} from "@/app/api/services/category.Service";
 
 const allUsersSeries = [
     {
@@ -43,8 +45,11 @@ const ReportsSnapshot = () => {
     const {theme: mode} = useTheme();
     const theme = themes.find((theme) => theme.name === config);
     const [blogResults, setBlogResults] = useState<BlogModel[]>([]);
-    const [blogsData, setBlogsData] = useState<DashboardData[]>([{data: []}])
-    const [draftsData, setDraftsData] = useState<DashboardData[]>([{data: []}])
+    const [categoryResults, setCategoryResults] = useState<CategoryModel[]>([]);
+    const [blogData, setBlogData] = useState<DashboardData[]>([{data: []}])
+    const [draftData, setDraftData] = useState<DashboardData[]>([{data: []}])
+    const [categoryData, setCategoryData] = useState<DashboardData[]>([{data: []}])
+
 
     useEffect(() => {
         fetchData();
@@ -52,6 +57,7 @@ const ReportsSnapshot = () => {
 
     const fetchData = async () => {
         await blogResponseHandler();
+        await categoryResponseHandler();
     }
 
 
@@ -78,9 +84,24 @@ const ReportsSnapshot = () => {
             });
 
         }
-        setBlogsData([{data: monthlyBlogCounts}]);
-        setDraftsData([{data: monthlyDraftCounts}]);
+        setBlogData([{data: monthlyBlogCounts}]);
+        setDraftData([{data: monthlyDraftCounts}]);
+    }
 
+    const categoryResponseHandler = async () => {
+        const monthlyCategoryCounts = new Array(12).fill(0);
+
+        const categoryResponse = await categoryService.getAll();
+        if (categoryResponse.status === 200) {
+            setCategoryResults(categoryResponse.data)
+            categoryResponse.data.forEach((category: any) => {
+                const createdAt = new Date(category.createdAt);
+                const month = createdAt.getMonth(); // Ayları 0'dan başlatır (0: Ocak, 11: Aralık)
+                monthlyCategoryCounts[month]++;
+            });
+
+        }
+        setCategoryData([{data: monthlyCategoryCounts}]);
 
     }
 
@@ -91,49 +112,49 @@ const ReportsSnapshot = () => {
 
     const tabsTrigger = [
         {
-            value: "all",
+            value: "blog",
             text: "total blogs",
             total: blogResults.filter((i: any) => i.status_id == 2).length,
             color: "primary",
         },
         {
-            value: "event",
+            value: "draft",
             text: "draft blogs",
             total: blogResults.filter((i: any) => i.status_id == 1).length,
             color: "warning",
         },
         {
-            value: "conversation",
+            value: "tag",
             text: "total tags",
             total: "21",
             color: "success",
         },
         {
-            value: "newuser",
+            value: "category",
             text: "total categories",
-            total: "3321",
+            total: categoryResults.length,
             color: "info",
         },
     ];
     const tabsContentData = [
         {
-            value: "all",
-            series: blogsData,
+            value: "blog",
+            series: blogData,
             color: primary,
         },
         {
-            value: "event",
-            series: draftsData,
+            value: "draft",
+            series: draftData,
             color: warning,
         },
         {
-            value: "conversation",
+            value: "tag",
             series: conversationSeries,
             color: success,
         },
         {
-            value: "newuser",
-            series: newUserSeries,
+            value: "category",
+            series: categoryData,
             color: info,
         },
     ];
@@ -147,17 +168,11 @@ const ReportsSnapshot = () => {
                         <div className="text-xl font-semibold text-default-900 whitespace-nowrap">
                             Year Overview
                         </div>
-                        {/*<span className="text-xs text-default-600">*/}
-                        {/*  Demographic properties of your customer*/}
-                        {/*</span>*/}
                     </div>
-                    {/*<div className="flex-none">*/}
-                    {/*  <DashboardSelect />*/}
-                    {/*</div>*/}
                 </div>
             </CardHeader>
             <CardContent className="p-1 md:p-5">
-                <Tabs defaultValue="all">
+                <Tabs defaultValue="blog">
                     <TabsList
                         className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6 justify-start w-full bg-transparent h-full">
                         {tabsTrigger.map((item, index) => (
