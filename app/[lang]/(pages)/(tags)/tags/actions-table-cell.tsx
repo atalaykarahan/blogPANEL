@@ -9,17 +9,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
-import DeleteCategoryDialog from "@/app/[lang]/(pages)/(categories)/categories/delete-category";
-import {CategoryModel} from "@/models/category";
+import {TagModel} from "@/models/tag";
 import {useState} from "react";
-import EditCategoryDialog from "@/app/[lang]/(pages)/(categories)/categories/edit-category";
+import DeleteTagDialog from "@/app/[lang]/(pages)/(tags)/tags/delete-tag";
+import EditTagDialog from "@/app/[lang]/(pages)/(tags)/tags/edit-tag";
 
 interface ActionsTableCellProps {
-    category: CategoryModel;
+    tag: TagModel;
     refreshTable: () => void;
 }
 
-const ActionsTableCell: React.FC<ActionsTableCellProps> = ({category, refreshTable}) => {
+const ActionsTableCell: React.FC<ActionsTableCellProps> = ({tag, refreshTable}) => {
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [editDialog, setEditDialog] = useState(false);
     return (
@@ -43,17 +43,17 @@ const ActionsTableCell: React.FC<ActionsTableCellProps> = ({category, refreshTab
                 </DropdownMenu>
             </div>
             {deleteDialog && (
-                <DeleteCategoryDialog
+                <DeleteTagDialog
                     isOpen={deleteDialog}
                     setIsOpen={setDeleteDialog}
-                    category={category}
+                    tag={tag}
                     refreshTable={refreshTable}/>)}
 
             {editDialog && (
-                <EditCategoryDialog
+                <EditTagDialog
                     isOpen={editDialog}
                     setIsOpen={setEditDialog}
-                    category={category}
+                    tag={tag}
                     refreshTable={refreshTable}/>)}
         </>
     )

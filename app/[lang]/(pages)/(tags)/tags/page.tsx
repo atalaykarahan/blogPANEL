@@ -1,5 +1,5 @@
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import CategoryDataTable from "@/app/[lang]/(pages)/(categories)/categories/category-table";
+import TagDataTable from "@/app/[lang]/(pages)/(tags)/tags/tag-table";
 
 const TagsPage = () => {
     return (

@@ -2,17 +2,17 @@
 import {Button} from "@/components/ui/button";
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,} from "@/components/ui/dialog";
 import {useState} from "react";
-import {CategoryModel} from "@/models/category";
-import CategoryForm from "@/app/[lang]/(pages)/(categories)/categories/category-form";
+import {TagModel} from "@/models/tag";
+import TagForm from "@/app/[lang]/(pages)/(tags)/tags/tag-form";
 
 
-interface CreateCategoryFormProps {
-    category?: CategoryModel;
+interface CreateTagFormProps {
+    tag?: TagModel;
     refreshTable: () => void;
 
 }
 
-const CreateCategoryForm: React.FC<CreateCategoryFormProps> = ({category, refreshTable}) => {
+const CreateTagForm: React.FC<CreateTagFormProps> = ({tag, refreshTable}) => {
     const [open, setOpen] = useState(false);
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -22,13 +22,13 @@ const CreateCategoryForm: React.FC<CreateCategoryFormProps> = ({category, refres
             <DialogContent size="2xl">
                 <DialogHeader className="p-0">
                     <DialogTitle className="text-base font-medium text-default-700 ">
-                        Create a New Category
+                        Create a New Tag
                     </DialogTitle>
                 </DialogHeader>
-                <CategoryForm category={category} refreshTable={refreshTable} setIsOpen={setOpen}/>
+                <TagForm tag={tag} refreshTable={refreshTable} setIsOpen={setOpen}/>
             </DialogContent>
         </Dialog>
     );
 };
 
-export default CreateCategoryForm;
+export default CreateTagForm;

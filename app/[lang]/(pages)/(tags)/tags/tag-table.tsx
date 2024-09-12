@@ -1,8 +1,6 @@
 "use client";
 import * as React from "react";
 import {useEffect} from "react";
-
-import {MoreHorizontal} from "lucide-react";
 import {
     ColumnDef,
     flexRender,
@@ -16,27 +14,14 @@ import {
 import {useRouter} from "next/navigation";
 
 import {Button} from "@/components/ui/button";
-import {Checkbox} from "@/components/ui/checkbox";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {Input} from "@/components/ui/input";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table";
 import {Icon} from "@iconify/react";
 import {cn} from "@/lib/utils";
-import {blogService} from "@/app/api/services/blog.Service";
-import {BlogModel} from "@/models/blog";
-import {categoryService} from "@/app/api/services/category.Service";
-import {CategoryModel} from "@/models/category";
-import CreateCategoryForm from "@/app/[lang]/(pages)/(categories)/categories/create-form";
-import DeleteCategoryDialog from "@/app/[lang]/(pages)/(categories)/categories/delete-category";
-import ActionsTableCell from "@/app/[lang]/(pages)/(categories)/categories/actions-table-cell";
+import CreateTagForm from "@/app/[lang]/(pages)/(tags)/tags/create-form";
+import ActionsTableCell from "@/app/[lang]/(pages)/(tags)/tags/actions-table-cell";
 import {TagModel} from "@/models/tag";
+import {tagService} from "@/app/api/services/tag.Service";
 
 
 export function TagDataTable() {
@@ -62,12 +47,12 @@ export function TagDataTable() {
             accessorKey: "tag_name",
             header: "Name",
             cell: ({row}) => {
-                const categoryName = row.original.tag_name;
+                const tagName = row.original.tag_name;
                 return (
                     <div className="font-medium text-card-foreground/80">
                         <div className="flex space-x-3 rtl:space-x-reverse items-center">
                         <span className="text-sm text-card-foreground whitespace-nowrap">
-              {categoryName ?? "Unknown Name"}
+              {tagName ?? "Unknown Name"}
             </span>
                         </div>
                     </div>
@@ -78,8 +63,8 @@ export function TagDataTable() {
             id: "actions",
             enableHiding: false,
             cell: ({row}) => {
-                const category = row.original;
-                return <ActionsTableCell category={category} refreshTable={fetchData}/>
+                const tag = row.original;
+                return <ActionsTableCell tag={tag} refreshTable={fetchData}/>
             },
         },
     ];
@@ -105,13 +90,13 @@ export function TagDataTable() {
             <div className="flex items-center flex-wrap gap-2  px-4">
                 <Input
                     placeholder="Search by name..."
-                    value={(table.getColumn("category_name")?.getFilterValue() as string) || ""}
+                    value={(table.getColumn("tag_name")?.getFilterValue() as string) || ""}
                     onChange={(event) =>
-                        table.getColumn("category_name")?.setFilterValue(event.target.value)
+                        table.getColumn("tag_name")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm min-w-[200px] h-10"
                 />
-                <CreateCategoryForm refreshTable={fetchData}/>
+                <CreateTagForm refreshTable={fetchData}/>
             </div>
             <div>
                 <Table>
@@ -202,4 +187,4 @@ export function TagDataTable() {
     );
 }
 
-export default CategoryDataTable;
+export default TagDataTable;
