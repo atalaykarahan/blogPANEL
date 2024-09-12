@@ -21,8 +21,19 @@ const CategoryForm: React.FC<CategoryFormProps> = ({category, refreshTable, setI
 
     const handleClick = async () => {
         //update
-        if (category?.category_id) {
+        if (category?.category_id && category?.category_name) {
             console.log("burd aupdate yaaaaa")
+            const response = await categoryService.update(category.category_id, categoryName);
+            if (response.status === 201) {
+                reToast.success("Successfully updated!")
+                if (setIsOpen) setIsOpen(false);
+                setCategoryName("")
+                if (refreshTable)
+                    refreshTable();
+            } else {
+                reToast.error("Something went wrong!")
+                if (setIsOpen) setIsOpen(false);
+            }
         } else {
             if (categoryName) {
                 const response = await categoryService.create(categoryName);

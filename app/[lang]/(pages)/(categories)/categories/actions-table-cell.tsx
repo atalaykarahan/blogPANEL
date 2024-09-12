@@ -12,6 +12,7 @@ import {MoreHorizontal} from "lucide-react";
 import DeleteCategoryDialog from "@/app/[lang]/(pages)/(categories)/categories/delete-category";
 import {CategoryModel} from "@/models/category";
 import {useState} from "react";
+import EditCategoryDialog from "@/app/[lang]/(pages)/(categories)/categories/edit-category";
 
 interface ActionsTableCellProps {
     category: CategoryModel;
@@ -45,6 +46,13 @@ const ActionsTableCell: React.FC<ActionsTableCellProps> = ({category, refreshTab
                 <DeleteCategoryDialog
                     isOpen={deleteDialog}
                     setIsOpen={setDeleteDialog}
+                    category={category}
+                    refreshTable={refreshTable}/>)}
+
+            {editDialog && (
+                <EditCategoryDialog
+                    isOpen={editDialog}
+                    setIsOpen={setEditDialog}
                     category={category}
                     refreshTable={refreshTable}/>)}
         </>
