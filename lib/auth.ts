@@ -1,9 +1,9 @@
-import NextAuth, { DefaultSession } from "next-auth";
+import NextAuth, {DefaultSession} from "next-auth";
 import parse, {splitCookiesString} from "set-cookie-parser";
 
 import Credentials from "next-auth/providers/credentials";
-// import { getLoggedInUserServer } from "@/app/api/services/auth.Service";
-import { cookies } from "next/dist/client/components/headers";
+import {cookies} from "next/dist/client/components/headers";
+import {authService} from "@/app/api/services/auth.Service";
 
 /** bu metodun amaci user.role kismi boyle bir alan yok
  * hatasi veriyor bunun onune gecmek icin yazildi */
@@ -18,9 +18,9 @@ declare module "next-auth" {
 }
 //#endregion
 
-export const { auth, handlers, signIn, signOut } = NextAuth({
+export const {auth, handlers, signIn, signOut} = NextAuth({
     callbacks: {
-        async session({ token, session }) {
+        async session({token, session}) {
             /** eger kullanici giris yapmis ise token icinde sub olusur
              * ve session icindede user objesi olusur */
             if (token.sub && session.user) {
@@ -34,7 +34,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             }
             return session;
         },
-        async jwt({ token }) {
+        async jwt({token}) {
             /** burda yazan yetkilendirme kodu kullanici her bir sayfa
              * degistirdiginde tetikleniyor surekli olarak guncel yetkisini cekiyor yani
              */
@@ -42,17 +42,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             //bu kisimda userin session icinde gozuken role yetkisini ekliyoruz
             if (!token.sub) return token;
 
-            // const existingUser = await getLoggedInUserServer();
-            // if (!existingUser.role) {
-            //     cookies().delete(process.env.SESSION_COOKIE_NAME || "connect.sid");
-            //     await signOut();
-            // }
-
-            // token.role = existingUser.role;
+            const userAuthenticated = await authService.getLoggedInUserServer();
+            if (!userAuthenticated.ok) {
+                await signOut();
+            }
             return token;
         },
     },
-    session: { strategy: "jwt" },
+    session: {strategy: "jwt"},
     providers: [
         Credentials({
             name: "credentials",
