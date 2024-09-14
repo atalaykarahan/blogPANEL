@@ -20,6 +20,7 @@ import twitter from "@/public/images/auth/twitter.png";
 import GithubIcon from "@/public/images/auth/github.png";
 import {SiteLogo} from "@/components/svg";
 import {useMediaQuery} from "@/hooks/use-media-query";
+import {loginAction} from "@/actions/login";
 
 const schema = z.object({
     email: z.string().email({message: "Your email is invalid."}),
@@ -55,18 +56,19 @@ const LogInForm = () => {
 
     const onSubmit = (data: any) => {
         startTransition(async () => {
-            let response = await signIn("credentials", {
-                email: data.email,
-                password: data.password,
-                redirect: false,
-            });
-            if (response?.ok) {
-                toast.success("Login Successful");
-                window.location.assign("/");
-                reset();
-            } else if (response?.error) {
-                toast.error(response?.error);
-            }
+            await loginAction(data.email, data.password);
+            // let response = await signIn("credentials", {
+            //     email: data.email,
+            //     password: data.password,
+            //     redirect: false,
+            // });
+            // if (response?.ok) {
+            //     toast.success("Login Successful");
+            //     window.location.assign("/");
+            //     reset();
+            // } else if (response?.error) {
+            //     toast.error(response?.error);
+            // }
         });
     };
     return (
