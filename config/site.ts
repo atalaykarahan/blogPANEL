@@ -2,12 +2,12 @@
 
 
 export const siteConfig = {
-  name: "DashTail Next js Admin Template",
+  name: "Atalay Karahan Admin Template",
   description: null,
-  theme: "violet",
+  theme: "orange",
   layout: "vertical",
   // semi-box, horizontal, vertical
-  hideSideBar: false,
+  hideSideBar: true,
   sidebarType: "module",
   // popover, classic, module
   sidebarColor: null,
