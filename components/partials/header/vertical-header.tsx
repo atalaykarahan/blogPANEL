@@ -106,11 +106,11 @@ const VerticalHeader: React.FC<VerticalHeaderProps> = ({ handleOpenSearch }) => 
       <MenuBar collapsed={collapsed} setCollapsed={setCollapsed} />
     );
   }
-  // if (sidebarType === "module") {
-  //   menuBarContent = (
-  //     <MenuBar collapsed={collapsed} setCollapsed={setCollapsed} />
-  //   );
-  // }
+  if (sidebarType === "module") {
+    menuBarContent = (
+      <MenuBar collapsed={collapsed} setCollapsed={setCollapsed} />
+    );
+  }
   if (sidebarType === "classic") {
     menuBarContent = null;
   }
