@@ -6,37 +6,14 @@ import {useThemeStore} from "@/store";
 import {useTheme} from "next-themes";
 import {themes} from "@/config/thems";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import DashboardSelect from "@/components/dasboard-select";
 import {cn} from "@/lib/utils";
 import {useEffect, useState} from "react";
 import {blogService} from "@/app/api/services/blog.Service";
-import Blog from "@/components/blog";
 import {BlogModel} from "@/models/blog";
 import {CategoryModel} from "@/models/category";
 import {categoryService} from "@/app/api/services/category.Service";
 import {TagModel} from "@/models/tag";
 import {tagService} from "@/app/api/services/tag.Service";
-
-const allUsersSeries = [
-    {
-        data: [90, 70, 85, 60, 80, 70, 90, 75, 60, 80, 10],
-    },
-];
-const conversationSeries = [
-    {
-        data: [80, 70, 65, 40, 40, 100, 100, 75, 60, 80],
-    },
-];
-const eventCountSeries = [
-    {
-        data: [20, 70, 65, 60, 40, 60, 90, 75, 60, 40],
-    },
-];
-const newUserSeries = [
-    {
-        data: [20, 70, 65, 40, 100, 60, 100, 75, 60, 80],
-    },
-];
 
 interface DashboardData {
     data: number[]; // Eğer her ay için sayı dizisi tutuyorsanız
