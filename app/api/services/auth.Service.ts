@@ -1,7 +1,4 @@
 import axios from "../axios";
-import {parse} from 'cookie';
-import {cookies} from "next/dist/client/components/headers";
-import {splitCookiesString} from "next/dist/server/web/utils";
 import {getMyCookie} from "@/lib/get-my-cookie";
 
 class AuthService {
@@ -15,13 +12,13 @@ class AuthService {
     };
 
 // login
-    async login(email: string, password: string) {
-        const props = {
-            email: email,
-            password: password
-        }
-        return await axios.post("/users/login", props, {withCredentials: true});
-    };
+//     async login(email: string, password: string) {
+//         const props = {
+//             email: email,
+//             password: password
+//         }
+//         return await axios.post("/users/login", props, {withCredentials: true});
+//     };
 
 
     // login

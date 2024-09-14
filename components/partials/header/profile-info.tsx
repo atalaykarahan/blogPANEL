@@ -16,10 +16,12 @@ import {
 import {Icon} from "@iconify/react";
 import Image from "next/image";
 import Link from "next/link";
-import avatar5 from "@/public/images/avatar/avatar-5.jpg";
+import avatarGojo from "@/public/images/avatar/avatar-gojo.png";
 import {authService} from "@/app/api/services/auth.Service";
+import {useCurrentUser} from "@/app/hooks/use-current-user";
 
 const ProfileInfo = () => {
+    const user = useCurrentUser();
 
     const handleLogOut = async () => {
         try {
@@ -38,7 +40,7 @@ const ProfileInfo = () => {
             <DropdownMenuTrigger asChild className=" cursor-pointer">
                 <div className=" flex items-center  ">
                     <Image
-                        src={avatar5}
+                        src={avatarGojo}
                         alt=""
                         width={36}
                         height={36}
@@ -49,7 +51,7 @@ const ProfileInfo = () => {
             <DropdownMenuContent className="w-56 p-0" align="end">
                 <DropdownMenuLabel className="flex gap-2 items-center mb-1 p-3">
                     <Image
-                        src={avatar5}
+                        src={avatarGojo}
                         alt=""
                         width={36}
                         height={36}
@@ -57,13 +59,13 @@ const ProfileInfo = () => {
                     />
                     <div>
                         <div className="text-sm font-medium text-default-800 capitalize ">
-                            {"Mcc Callem"}
+                            {user?.name}
                         </div>
                         <Link
-                            href="/dashboard"
+                            href="https://www.linkedin.com/in/atalay-karahan-050985250/"
                             className="text-xs text-default-600 hover:text-primary"
                         >
-                            @uxuidesigner
+                            @atalay-karahan
                         </Link>
                     </div>
                 </DropdownMenuLabel>
@@ -77,17 +79,17 @@ const ProfileInfo = () => {
                         {
                             name: "Billing",
                             icon: "heroicons:megaphone",
-                            href: "/dashboard"
+                            href: "/"
                         },
                         {
                             name: "Settings",
                             icon: "heroicons:paper-airplane",
-                            href: "/dashboard"
+                            href: "/"
                         },
                         {
                             name: "Keyboard shortcuts",
                             icon: "heroicons:language",
-                            href: "/dashboard"
+                            href: "/"
                         },
                     ].map((item, index) => (
                         <Link
@@ -105,7 +107,7 @@ const ProfileInfo = () => {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
-                    <Link href="/dashboard" className="cursor-pointer">
+                    <Link href="/" className="cursor-pointer">
                         <DropdownMenuItem
                             className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize px-3 py-1.5 dark:hover:bg-background cursor-pointer">
                             <Icon icon="heroicons:user-group" className="w-4 h-4"/>
@@ -132,7 +134,7 @@ const ProfileInfo = () => {
                                     },
                                 ].map((item, index) => (
                                     <Link
-                                        href="/dashboard"
+                                        href="/"
                                         key={`message-sub-${index}`}
                                         className="cursor-pointer"
                                     >
@@ -145,7 +147,7 @@ const ProfileInfo = () => {
                             </DropdownMenuSubContent>
                         </DropdownMenuPortal>
                     </DropdownMenuSub>
-                    <Link href="/dashboard">
+                    <Link href="/">
                         <DropdownMenuItem
                             className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize px-3 py-1.5 dark:hover:bg-background cursor-pointer">
                             <Icon icon="heroicons:variable" className="w-4 h-4"/>
@@ -172,7 +174,7 @@ const ProfileInfo = () => {
                                         name: "whatsapp",
                                     },
                                 ].map((item, index) => (
-                                    <Link href="/dashboard" key={`message-sub-${index}`}>
+                                    <Link href="/" key={`message-sub-${index}`}>
                                         <DropdownMenuItem
                                             className="text-sm font-medium text-default-600 capitalize px-3 py-1.5 dark:hover:bg-background cursor-pointer">
                                             {item.name}

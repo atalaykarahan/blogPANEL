@@ -90,7 +90,7 @@ export const demoMenus = [
     child: [
       {
         title: "Analytics",
-        href: "/dashboard",
+        href: "/",
         icon: Graph,
         image: analyticsPage,
       },

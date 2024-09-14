@@ -34,8 +34,6 @@ const AllComponents = () => {
             pauseOnMouseEnter: true,
             delay: 0,
           }}
-
-
         >
           {data.map((item, index) => (
             <SwiperSlide
