@@ -56,19 +56,11 @@ const LogInForm = () => {
 
     const onSubmit = (data: any) => {
         startTransition(async () => {
-            await loginAction(data.email, data.password);
-            // let response = await signIn("credentials", {
-            //     email: data.email,
-            //     password: data.password,
-            //     redirect: false,
-            // });
-            // if (response?.ok) {
-            //     toast.success("Login Successful");
-            //     window.location.assign("/");
-            //     reset();
-            // } else if (response?.error) {
-            //     toast.error(response?.error);
-            // }
+            loginAction(data.email, data.password).then((data): any => {
+                if (data && data.error) {
+                    toast.error(data.error);
+                }
+            })
         });
     };
     return (
