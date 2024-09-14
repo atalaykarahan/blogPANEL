@@ -7,17 +7,10 @@ import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Loader2} from "lucide-react";
-import {signIn} from "next-auth/react";
 import toast from "react-hot-toast";
 import {cn} from "@/lib/utils";
 import Link from "next/link";
-import Image from "next/image";
 import {Icon} from "@iconify/react";
-import {Checkbox} from "@/components/ui/checkbox";
-import googleIcon from "@/public/images/auth/google.png";
-import facebook from "@/public/images/auth/facebook.png";
-import twitter from "@/public/images/auth/twitter.png";
-import GithubIcon from "@/public/images/auth/github.png";
 import {SiteLogo} from "@/components/svg";
 import {useMediaQuery} from "@/hooks/use-media-query";
 import {loginAction} from "@/actions/login";
@@ -69,10 +62,10 @@ const LogInForm = () => {
                 <SiteLogo className="h-10 w-10 2xl:w-14 2xl:h-14 text-primary"/>
             </Link>
             <div className="2xl:mt-8 mt-6 2xl:text-3xl text-2xl font-bold text-default-900">
-                Hey, Hello 👋
+                Welcome Admin of the blogs 👋
             </div>
             <div className="2xl:text-lg text-base text-default-600 mt-2 leading-6">
-                Enter the information you entered while registering.
+                Lets write new blog.
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 2xl:mt-7">
                 <div>
@@ -138,22 +131,22 @@ const LogInForm = () => {
                 )}
 
                 <div className="mt-5  mb-8 flex flex-wrap gap-2">
-                    <div className="flex-1 flex  items-center gap-1.5 ">
-                        <Checkbox
-                            size="sm"
-                            className="border-default-300 mt-[1px]"
-                            id="isRemebered"
-                        />
-                        <Label
-                            htmlFor="isRemebered"
-                            className="text-sm text-default-600 cursor-pointer whitespace-nowrap"
-                        >
-                            Remember me
-                        </Label>
-                    </div>
-                    <Link href="/auth/forgot2" className="flex-none text-sm text-primary">
-                        Forget Password?
-                    </Link>
+                    {/*<div className="flex-1 flex  items-center gap-1.5 ">*/}
+                    {/*    <Checkbox*/}
+                    {/*        size="sm"*/}
+                    {/*        className="border-default-300 mt-[1px]"*/}
+                    {/*        id="isRemebered"*/}
+                    {/*    />*/}
+                    {/*    <Label*/}
+                    {/*        htmlFor="isRemebered"*/}
+                    {/*        className="text-sm text-default-600 cursor-pointer whitespace-nowrap"*/}
+                    {/*    >*/}
+                    {/*        Remember me*/}
+                    {/*    </Label>*/}
+                    {/*</div>*/}
+                    {/*<Link href="/auth/forgot2" className="flex-none text-sm text-primary">*/}
+                    {/*    Forget Password?*/}
+                    {/*</Link>*/}
                 </div>
                 <Button
                     className="w-full"
@@ -164,60 +157,60 @@ const LogInForm = () => {
                     {isPending ? "Loading..." : "Sign In"}
                 </Button>
             </form>
-            <div className="mt-5 2xl:mt-8 flex flex-wrap justify-center gap-4">
-                <Button
-                    type="button"
-                    size="icon"
-                    variant="outline"
-                    className="rounded-full  border-default-300 hover:bg-transparent"
-                    disabled={isPending}
-                    onClick={() =>
-                        signIn("google", {
-                            callbackUrl: "/",
-                        })
-                    }
-                >
-                    <Image src={googleIcon} alt="google" className="w-5 h-5"/>
-                </Button>
-                <Button
-                    type="button"
-                    size="icon"
-                    variant="outline"
-                    className="rounded-full  border-default-300 hover:bg-transparent"
-                    disabled={isPending}
-                    onClick={() =>
-                        signIn("github", {
-                            callbackUrl: "/",
-                            redirect: false,
-                        })
-                    }
-                >
-                    <Image src={GithubIcon} alt="google" className="w-5 h-5"/>
-                </Button>
-                <Button
-                    type="button"
-                    size="icon"
-                    variant="outline"
-                    className="rounded-full border-default-300 hover:bg-transparent"
-                >
-                    <Image src={facebook} alt="google" className="w-5 h-5"/>
-                </Button>
-                <Button
-                    type="button"
-                    size="icon"
-                    variant="outline"
-                    className="rounded-full  border-default-300 hover:bg-transparent"
-                >
-                    <Image src={twitter} alt="google" className="w-5 h-5"/>
-                </Button>
-            </div>
-            <div className="mt-5 2xl:mt-8 text-center text-base text-default-600">
-                Don't have an account?{" "}
-                <Link href="/auth/register2" className="text-primary">
-                    {" "}
-                    Sign Up{" "}
-                </Link>
-            </div>
+            {/*<div className="mt-5 2xl:mt-8 flex flex-wrap justify-center gap-4">*/}
+            {/*    <Button*/}
+            {/*        type="button"*/}
+            {/*        size="icon"*/}
+            {/*        variant="outline"*/}
+            {/*        className="rounded-full  border-default-300 hover:bg-transparent"*/}
+            {/*        disabled={isPending}*/}
+            {/*        onClick={() =>*/}
+            {/*            signIn("google", {*/}
+            {/*                callbackUrl: "/",*/}
+            {/*            })*/}
+            {/*        }*/}
+            {/*    >*/}
+            {/*        <Image src={googleIcon} alt="google" className="w-5 h-5"/>*/}
+            {/*    </Button>*/}
+            {/*    <Button*/}
+            {/*        type="button"*/}
+            {/*        size="icon"*/}
+            {/*        variant="outline"*/}
+            {/*        className="rounded-full  border-default-300 hover:bg-transparent"*/}
+            {/*        disabled={isPending}*/}
+            {/*        onClick={() =>*/}
+            {/*            signIn("github", {*/}
+            {/*                callbackUrl: "/",*/}
+            {/*                redirect: false,*/}
+            {/*            })*/}
+            {/*        }*/}
+            {/*    >*/}
+            {/*        <Image src={GithubIcon} alt="google" className="w-5 h-5"/>*/}
+            {/*    </Button>*/}
+            {/*    <Button*/}
+            {/*        type="button"*/}
+            {/*        size="icon"*/}
+            {/*        variant="outline"*/}
+            {/*        className="rounded-full border-default-300 hover:bg-transparent"*/}
+            {/*    >*/}
+            {/*        <Image src={facebook} alt="google" className="w-5 h-5"/>*/}
+            {/*    </Button>*/}
+            {/*    <Button*/}
+            {/*        type="button"*/}
+            {/*        size="icon"*/}
+            {/*        variant="outline"*/}
+            {/*        className="rounded-full  border-default-300 hover:bg-transparent"*/}
+            {/*    >*/}
+            {/*        <Image src={twitter} alt="google" className="w-5 h-5"/>*/}
+            {/*    </Button>*/}
+            {/*</div>*/}
+            {/*<div className="mt-5 2xl:mt-8 text-center text-base text-default-600">*/}
+            {/*    Don't have an account?{" "}*/}
+            {/*    <Link href="/auth/register2" className="text-primary">*/}
+            {/*        {" "}*/}
+            {/*        Sign Up{" "}*/}
+            {/*    </Link>*/}
+            {/*</div>*/}
         </div>
     );
 };
