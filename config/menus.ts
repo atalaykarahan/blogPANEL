@@ -53,16 +53,6 @@ export const menusConfig = {
                     },
                 ]
             },
-            {
-                title: "categories",
-                icon: DashBoard,
-                href: "/categories",
-            },
-            {
-                title: "tags",
-                icon: DashBoard,
-                href: "/tags",
-            },
         ],
         classic: [
             //  {

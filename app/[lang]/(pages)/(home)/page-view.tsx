@@ -20,12 +20,12 @@ const DashboardPageView = ({trans}: DashboardPageViewProps) => {
             </div>
             {/* reports area */}
             <div className="grid grid-cols-12  gap-6 ">
-                <div className="col-span-12 lg:col-span-8">
+                <div className="col-span-12 lg:col-span-12">
                     <ReportsSnapshot/>
                 </div>
-                <div className="col-span-12 lg:col-span-4">
-                    <UsersStat/>
-                </div>
+                {/*<div className="col-span-12 lg:col-span-4">*/}
+                {/*    /!*<UsersStat/>*!/*/}
+                {/*</div>*/}
             </div>
         </div>
     );

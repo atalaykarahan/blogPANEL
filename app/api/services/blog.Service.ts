@@ -6,14 +6,12 @@ import {TagModel} from "@/models/tag";
 
 class BlogService {
     //#region CREATE
-    async create(title: string, slug: string, description: string, categories: CategoryModel[], tags?: TagModel[],
+    async create(title: string, slug: string, description: string,
                  status?: string) {
         const props = {
             title: title,
             slug: slug,
             description: description,
-            categories: categories.map(i => i.category_id),
-            tags: tags?.map(i => i.tag_id),
             status: status,
         }
         return await axios.post("/blogs", props);
@@ -22,15 +20,13 @@ class BlogService {
     //#endregion
 
     //#region UPDATE
-    async update(id: string, title: string, slug: string, description: string, categories: CategoryModel[], tags?: TagModel[],
+    async update(id: string, title: string, slug: string, description: string,
                  status?: string) {
         const props = {
             id: id,
             title: title,
             slug: slug,
             description: description,
-            categories: categories.map(i => i.category_id),
-            tags: tags?.map(i => i.tag_id),
             status: status,
         }
         return await axios.put("/blogs", props);
@@ -75,12 +71,14 @@ class BlogService {
     async getAllPublishedBlogs() {
         return await axios.get(`/blogs/status/2`,);
     };
+
     //#endregion
 
     //#region GET ALL DRAFT BLOGS
     async getAllDraftBlogs() {
         return await axios.get(`/blogs/status/1`,);
     };
+
     //#endregion
 
 }
