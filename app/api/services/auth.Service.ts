@@ -11,6 +11,18 @@ class AuthService {
         return query;
     };
 
+    async logoutServer() {
+        const query: any = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/logout`, {
+            method: "POST",
+            headers: {
+                Cookie: `${getMyCookie()}`,
+            },
+            credentials: 'include'
+        });
+        const response = await query.status;
+        return response;
+    }
+
 // login
 //     async login(email: string, password: string) {
 //         const props = {

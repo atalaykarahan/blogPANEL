@@ -43,7 +43,7 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
             if (!token.sub) return token;
 
             const userAuthenticated = await authService.getLoggedInUserServer();
-            if (!userAuthenticated.ok) {
+            if (userAuthenticated.status === 401) {
                 await signOut();
             }
             return token;

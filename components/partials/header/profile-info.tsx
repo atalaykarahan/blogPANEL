@@ -1,5 +1,4 @@
 "use client";
-import {signOut} from "next-auth/react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,21 +11,17 @@ import {Icon} from "@iconify/react";
 import Image from "next/image";
 import Link from "next/link";
 import avatarGojo from "@/public/images/avatar/avatar-gojo.png";
-import {authService} from "@/app/api/services/auth.Service";
 import {useCurrentUser} from "@/app/hooks/use-current-user";
+import {logoutAction} from "@/actions/logout";
 
 const ProfileInfo = () => {
     const user = useCurrentUser();
 
     const handleLogOut = async () => {
         try {
-            const response: any = await authService.logout();
-            if (response.status === 200) {
-                await signOut()
-            }
-
+            await logoutAction();
         } catch (error) {
-            console.error("hata mesajı catch")
+            console.error("hata mesajı logout;", error)
         }
     }
 

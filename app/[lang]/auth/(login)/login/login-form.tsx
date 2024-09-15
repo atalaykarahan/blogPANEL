@@ -39,8 +39,9 @@ const LogInForm = () => {
         resolver: zodResolver(schema),
         mode: "all",
         defaultValues: {
-            email: "keremuzun3959@gmail.com",
-            password: "",
+            email: "atalay.karahan59@gmail.com",
+            password: "12345678",
+            // keremuzun3959@gmail.com
         },
     });
     const [isVisible, setIsVisible] = React.useState(false);

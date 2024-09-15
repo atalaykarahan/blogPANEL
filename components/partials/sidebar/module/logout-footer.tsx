@@ -1,20 +1,15 @@
 "use client";
-import {signOut} from "next-auth/react";
 import {Icon} from "@iconify/react";
 import AddBlock from "../common/add-block";
-import {authService} from "@/app/api/services/auth.Service";
 import {useCurrentUser} from "@/app/hooks/use-current-user";
+import {logoutAction} from "@/actions/logout";
 
 const LogoutFooter = () => {
     const user = useCurrentUser();
 
     const handleLogOut = async () => {
         try {
-            const response: any = await authService.logout();
-            if (response.status === 200) {
-                await signOut()
-            }
-
+            await logoutAction();
         } catch (error) {
             console.error("hata mesajı catch")
         }
