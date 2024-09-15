@@ -1,4 +1,3 @@
-ecosystem.config.json
 {
   "apps": [
     {
@@ -8,8 +7,8 @@ ecosystem.config.json
       "cwd": "./",
       "instances": "1",
       "exec_mode": "fork",
-          "env": 
-        { 
+          "env":
+         {
                 "PORT": 5939
          }
     }
