@@ -12,10 +12,13 @@ export const isLocationMatch = (
   targetLocation: any,
   locationName: any
 ): boolean => {
-  return (
-    locationName === targetLocation ||
-    locationName.startsWith(`${targetLocation}/`)
-  );
+    if (targetLocation === 'home') {
+        targetLocation = '/en';
+    }
+    return (
+        locationName === targetLocation ||
+        locationName.startsWith(`${targetLocation}/`)
+    );
 };
 
 export const RGBToHex = (r: number, g: number, b: number): string => {

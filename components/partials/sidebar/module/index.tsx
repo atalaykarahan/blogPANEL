@@ -140,6 +140,7 @@ const ModuleSidebar = ({ trans }: { trans: any }) => {
       setSubmenu(false);
     }
     if (!isDesktop) {
+      setCollapsed(false);
       setSubmenu(true);
     }
   }, [locationName, isDesktop]);
