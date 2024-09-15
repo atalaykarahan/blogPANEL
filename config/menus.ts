@@ -3,7 +3,7 @@ import {
     DashBoard, Stacks2,
 
 } from "@/components/svg";
-import {NotebookText} from "lucide-react";
+import {NotebookPen, Table2} from "lucide-react";
 
 
 export interface MenuItemProps {
@@ -40,7 +40,7 @@ export const menusConfig = {
                 child: [
                     {
                         title: "blog list",
-                        icon: Stacks2,
+                        icon: Table2,
                         href: "/blogs",
                     },
                     {
@@ -50,7 +50,7 @@ export const menusConfig = {
                     },
                     {
                         title: "pending",
-                        icon: Stacks2,
+                        icon: Table2,
                         href: "/draft",
                     },
                 ]
