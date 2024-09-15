@@ -78,7 +78,6 @@ export function PublishDataTable() {
             enableHiding: false,
             cell: ({row}) => {
                 const blog = row.original;
-                console.log(blog);
                 return (
                     <div className=" text-end">
                         <DropdownMenu>

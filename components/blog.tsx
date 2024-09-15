@@ -61,8 +61,6 @@ const BlogComponent: React.FC<BlogModel> = ({
     const [blogSlug, setBlogSlug] = useState(blog_slug || '');
     const [blogDescription, setBlogDescription] = useState(blog_description || '');
     const [blogStatus, setBlogStatus] = useState(status_id || '');
-    const [categoriesData, setCategoriesData] = useState([]);
-    const [tagsData, setTagsData] = useState([]);
     const [redirect, setRedirect] = useState<boolean>(false);
     //#endregion
 
@@ -111,7 +109,6 @@ const BlogComponent: React.FC<BlogModel> = ({
         try {
             const response = await blogService.uploadImage(formData);
 
-            console.log(response);
             return response.data;
             // return response.data.imageUrl; // Sunucudan dönen resim URL'si
         } catch (error) {
@@ -134,29 +131,29 @@ const BlogComponent: React.FC<BlogModel> = ({
         setRedirect(true);
     }
 
-    const fetchData = async () => {
-        const responseCategory = await categoryService.getAll();
-        if (responseCategory.status === 200) {
-            const formattedCategories = responseCategory.data.map((category: any) => ({
-                label: category.category_name,
-                value: category.category_id
-            }));
-            setCategoriesData(formattedCategories);
-        }
-        const responseTag = await tagService.getAll();
-        if (responseTag.status === 200) {
-            const formattedTags = responseTag.data.map((tag: any) => ({
-                label: tag.tag_name,
-                value: tag.tag_id
-            }));
-            setTagsData(formattedTags);
-        }
-    }
+    // const fetchData = async () => {
+    //     const responseCategory = await categoryService.getAll();
+    //     if (responseCategory.status === 200) {
+    //         const formattedCategories = responseCategory.data.map((category: any) => ({
+    //             label: category.category_name,
+    //             value: category.category_id
+    //         }));
+    //         // setCategoriesData(formattedCategories);
+    //     }
+    //     const responseTag = await tagService.getAll();
+    //     if (responseTag.status === 200) {
+    //         const formattedTags = responseTag.data.map((tag: any) => ({
+    //             label: tag.tag_name,
+    //             value: tag.tag_id
+    //         }));
+    //         setTagsData(formattedTags);
+    //     }
+    // }
 
     //#endregion
 
     useEffect(() => {
-        fetchData();
+        // fetchData();
     }, []);
 
 

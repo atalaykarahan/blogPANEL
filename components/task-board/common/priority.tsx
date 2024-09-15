@@ -27,7 +27,7 @@ const Priority = ({ task, taskId }: {
 
         await updateTaskAction(taskId, newData);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
 
       setSelectedPriority(value);

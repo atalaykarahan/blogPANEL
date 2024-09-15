@@ -34,7 +34,7 @@ const CommentFooter = ({ taskId }: {
       await postCommentAction(newMessage as any);
       setMessage("");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

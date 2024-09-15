@@ -83,7 +83,7 @@ const AssignTags = ({ task, taskId }: {
     try {
       await updateTaskAction(taskId, newVal);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -108,7 +108,7 @@ const AssignTags = ({ task, taskId }: {
       closePopover();
       setNewTagName("");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

@@ -26,7 +26,7 @@ const ProfileInfo = () => {
             }
 
         } catch (error) {
-            console.log("hata mesajı catch")
+            console.error("hata mesajı catch")
         }
     }
 
