@@ -7,7 +7,7 @@ import ProfileInfo from "./profile-info";
 import VerticalHeader from "./vertical-header";
 import HorizontalHeader from "./horizontal-header";
 import Inbox from "./inbox";
-import HorizontalMenu from "./horizontal-menu";
+// import HorizontalMenu from "./horizontal-menu";
 import NotificationMessage from "./notification-message";
 
 import Language from "./language";
@@ -69,7 +69,7 @@ const Header = ({ handleOpenSearch, trans }: { handleOpenSearch: () => void; tra
         </div>
         {isDesktop && (
           <div className=" bg-card bg-card/90 backdrop-blur-lg  w-full px-6  shadow-md">
-            <HorizontalMenu trans={trans} />
+            {/*<HorizontalMenu trans={trans} />*/}
           </div>
         )}
       </ClassicHeader>

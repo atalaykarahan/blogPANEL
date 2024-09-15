@@ -99,7 +99,7 @@ const ClassicSidebar = ({trans}: { trans: string }) => {
                         "text-start": collapsed && hovered,
                     })}
                 >
-                    {menus.map((item, i) => (
+                    {menus.map((item: any, i) => (
                         <li key={`menu_key_${i}`}>
                             {/* single menu  */}
 
