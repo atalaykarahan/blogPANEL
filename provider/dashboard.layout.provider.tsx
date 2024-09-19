@@ -4,8 +4,8 @@ import Header from "@/components/partials/header";
 import Sidebar from "@/components/partials/sidebar";
 import {cn} from "@/lib/utils";
 import {useSidebar, useThemeStore} from "@/store";
-import {motion, AnimatePresence} from "framer-motion";
-import {useRouter, usePathname} from "next/navigation";
+import {motion} from "framer-motion";
+import {usePathname} from "next/navigation";
 import Footer from "@/components/partials/footer";
 import {useMediaQuery} from "@/hooks/use-media-query";
 // import ThemeCustomize from "@/components/partials/customizer/theme-customizer";
@@ -54,7 +54,7 @@ const DashBoardLayoutProvider = ({children, trans}: { children: React.ReactNode,
                         </div>
                     </div>
                 </div>
-                <Footer handleOpenSearch={() => setOpen(true)}/>
+                <Footer/>
                 {/*<ThemeCustomize />*/}
             </>
         );
@@ -82,8 +82,7 @@ const DashBoardLayoutProvider = ({children, trans}: { children: React.ReactNode,
                         </LayoutWrapper>
                     </div>
                 </div>
-                <Footer handleOpenSearch={() => setOpen(true)}/>
-                {/*<ThemeCustomize />*/}
+                <Footer/>
             </>
         );
     }
@@ -117,8 +116,7 @@ const DashBoardLayoutProvider = ({children, trans}: { children: React.ReactNode,
                         </LayoutWrapper>
                     </div>
                 </div>
-                <Footer handleOpenSearch={() => setOpen(true)}/>
-                {/*<ThemeCustomize />*/}
+                <Footer/>
             </>
         );
     }
@@ -149,8 +147,7 @@ const DashBoardLayoutProvider = ({children, trans}: { children: React.ReactNode,
                     </LayoutWrapper>
                 </div>
             </div>
-            <Footer handleOpenSearch={() => setOpen(true)}/>
-            {/*{isMobile && <ThemeCustomize/>}*/}
+            <Footer/>
         </>
     );
 };
