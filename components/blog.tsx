@@ -9,10 +9,8 @@ import 'react-markdown-editor-lite/lib/index.css';
 import MarkdownIt from 'markdown-it';
 import {useEffect, useState} from "react";
 import {BlogModel} from "@/models/blog";
-import {categoryService} from "@/app/api/services/category.Service";
 import {blogService} from "@/app/api/services/blog.Service";
 import {useRouter} from "next/navigation";
-import {tagService} from "@/app/api/services/tag.Service";
 
 interface OptionType {
     value: string;
@@ -131,25 +129,6 @@ const BlogComponent: React.FC<BlogModel> = ({
         setRedirect(true);
     }
 
-    // const fetchData = async () => {
-    //     const responseCategory = await categoryService.getAll();
-    //     if (responseCategory.status === 200) {
-    //         const formattedCategories = responseCategory.data.map((category: any) => ({
-    //             label: category.category_name,
-    //             value: category.category_id
-    //         }));
-    //         // setCategoriesData(formattedCategories);
-    //     }
-    //     const responseTag = await tagService.getAll();
-    //     if (responseTag.status === 200) {
-    //         const formattedTags = responseTag.data.map((tag: any) => ({
-    //             label: tag.tag_name,
-    //             value: tag.tag_id
-    //         }));
-    //         setTagsData(formattedTags);
-    //     }
-    // }
-
     //#endregion
 
     useEffect(() => {
@@ -175,58 +154,12 @@ const BlogComponent: React.FC<BlogModel> = ({
                     <Input type="text" placeholder="Enter slug url" id="slug" value={blogSlug}
                            onChange={handleSlugChange}/>
                 </div>
-                {/*<div className="col-span-2  flex flex-col gap-2">*/}
-                {/*    <Label>Category</Label>*/}
-                {/*    <Select*/}
-                {/*        isClearable={true}*/}
-                {/*        closeMenuOnSelect={false}*/}
-                {/*        components={animatedComponents}*/}
-                {/*        isMulti*/}
-                {/*        options={categoriesData}*/}
-                {/*        styles={styles}*/}
-                {/*        className="react-select"*/}
-                {/*        classNamePrefix="select"*/}
-                {/*        value={blogCategory?.map(category => ({*/}
-                {/*            label: category.category_name,*/}
-                {/*            value: category.category_id*/}
-                {/*        }))}*/}
-                {/*        onChange={(selectedCategories) => {*/}
-                {/*            const formattedCategories = selectedCategories.map((category) => ({*/}
-                {/*                category_id: category.value,*/}
-                {/*                category_name: category.label,*/}
-                {/*            }));*/}
-                {/*            setBlogCategory(formattedCategories);*/}
-                {/*        }}*/}
-                {/*    />*/}
-                {/*</div>*/}
-
                 <div className="col-span-2  flex flex-col gap-2">
                     <Label>Blog Content</Label>
                     <MdEditor style={{width: '100%', height: '400px'}} renderHTML={text => mdParser.render(text)}
                               onChange={handleEditorChange} value={blogDescription}
                               onImageUpload={handleEditorImageUpload}/>
                 </div>
-                {/*<div className="col-span-2  flex flex-col gap-2">*/}
-                {/*    <Label>Tags</Label>*/}
-                {/*    <Select*/}
-                {/*        isClearable={true}*/}
-                {/*        closeMenuOnSelect={false}*/}
-                {/*        components={animatedComponents}*/}
-                {/*        isMulti*/}
-                {/*        options={tagsData}*/}
-                {/*        styles={styles}*/}
-                {/*        className="react-select"*/}
-                {/*        classNamePrefix="select"*/}
-                {/*        value={blogTags?.map(tag => ({label: tag.tag_name, value: tag.tag_id}))}*/}
-                {/*        onChange={(selectedTags) => {*/}
-                {/*            const formattedTags = selectedTags.map((tag) => ({*/}
-                {/*                tag_id: tag.value,*/}
-                {/*                tag_name: tag.label,*/}
-                {/*            }));*/}
-                {/*            setBlogTags(formattedTags);*/}
-                {/*        }}*/}
-                {/*    />*/}
-                {/*</div>*/}
                 <div className="col-span-2  flex flex-col gap-2">
                     <Label>Status</Label>
                     <Select

@@ -1,21 +1,16 @@
 "use client";
 import React from "react";
-import ThemeCustomize from "../customizer/theme-customizer";
-import {MenuBar, Settings, SiteLogo, DSearch, Medical} from "@/components/svg";
+import {SiteLogo} from "@/components/svg";
 import Link from "next/link";
 import {NotebookPen, Table2} from "lucide-react";
 import {useRouter} from "next/navigation";
 
-const MobileFooter = ({handleOpenSearch}: { handleOpenSearch: () => void }) => {
+const MobileFooter = () => {
     const router = useRouter();
     return (
         <footer
             className="bg-card bg-no-repeat   shadow-[0_-4px_29px_#9595952b] dark:shadow-[0_-4px_29px_#000000cc] footer-bg  border-t dark:border-none flex justify-around items-center backdrop-filter backdrop-blur-[40px] fixed left-0 w-full z-50 bottom-0 py-[12px] px-4">
             <div className="flex flex-col items-center justify-center">
-                {/*<DSearch*/}
-                {/*  className="h-6 w-6  cursor-pointer"*/}
-                {/*  onClick={handleOpenSearch}*/}
-                {/*/>*/}
                 <NotebookPen onClick={() => router.push('/en/addblog')}/>
                 <p className="mb-0 mt-1.5 text-xs text-default-600">Add Blog</p>
             </div>
@@ -29,9 +24,6 @@ const MobileFooter = ({handleOpenSearch}: { handleOpenSearch: () => void }) => {
                 </div>
             </div>
             <div className="flex flex-col items-center justify-center">
-                {/*<ThemeCustomize*/}
-                {/*  trigger={<Settings className="h-6 w-6  cursor-pointer" />}*/}
-                {/*/>*/}
                 <Table2 onClick={() => router.push('/en/blogs')}/>
                 <p className="mb-0 mt-1.5 text-xs text-default-600">Blog List</p>
             </div>

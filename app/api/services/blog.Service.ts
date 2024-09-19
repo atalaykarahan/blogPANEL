@@ -36,14 +36,14 @@ class BlogService {
 
     //#region GET BY ID
     async getById(id: string) {
-        return await axios.get(`/blogs/${id}`,);
+        return await axios.get(`/blogs/blog/${id}`,);
     };
 
     //#endregion
 
     //#region DELETE
     async deleteById(id: string) {
-        return await axios.delete(`/blogs/${id}`,);
+        return await axios.delete(`/blogs/blog/${id}`,);
     };
 
     //#endregion

@@ -10,10 +10,6 @@ import {cn} from "@/lib/utils";
 import {useEffect, useState} from "react";
 import {blogService} from "@/app/api/services/blog.Service";
 import {BlogModel} from "@/models/blog";
-import {CategoryModel} from "@/models/category";
-import {categoryService} from "@/app/api/services/category.Service";
-import {TagModel} from "@/models/tag";
-import {tagService} from "@/app/api/services/tag.Service";
 
 interface DashboardData {
     data: number[]; // Eğer her ay için sayı dizisi tutuyorsanız
@@ -24,12 +20,8 @@ const ReportsSnapshot = () => {
     const {theme: mode} = useTheme();
     const theme = themes.find((theme) => theme.name === config);
     const [blogResults, setBlogResults] = useState<BlogModel[]>([]);
-    // const [categoryResults, setCategoryResults] = useState<CategoryModel[]>([]);
-    // const [tagResults, setTagResults] = useState<TagModel[]>([]);
     const [blogData, setBlogData] = useState<DashboardData[]>([{data: []}])
     const [draftData, setDraftData] = useState<DashboardData[]>([{data: []}])
-    // const [categoryData, setCategoryData] = useState<DashboardData[]>([{data: []}])
-    // const [tagData, setTagData] = useState<DashboardData[]>([{data: []}])
 
 
     useEffect(() => {
@@ -38,8 +30,6 @@ const ReportsSnapshot = () => {
 
     const fetchData = async () => {
         await blogResponseHandler();
-        // await categoryResponseHandler();
-        // await tagResponseHandler();
     }
 
 
@@ -69,42 +59,8 @@ const ReportsSnapshot = () => {
         setBlogData([{data: monthlyBlogCounts}]);
         setDraftData([{data: monthlyDraftCounts}]);
     }
-
-    // const categoryResponseHandler = async () => {
-    //     const monthlyCategoryCounts = new Array(12).fill(0);
-    //     const categoryResponse = await categoryService.getAll();
-    //     if (categoryResponse.status === 200) {
-    //         setCategoryResults(categoryResponse.data)
-    //         categoryResponse.data.forEach((category: any) => {
-    //             const createdAt = new Date(category.createdAt);
-    //             const month = createdAt.getMonth(); // Ayları 0'dan başlatır (0: Ocak, 11: Aralık)
-    //             monthlyCategoryCounts[month]++;
-    //         });
-    //
-    //     }
-    //     setCategoryData([{data: monthlyCategoryCounts}]);
-    // }
-    //
-    //
-    // const tagResponseHandler = async () => {
-    //     const monthlyTagCounts = new Array(12).fill(0);
-    //     const tagResponse = await tagService.getAll();
-    //     if (tagResponse.status === 200) {
-    //         setTagResults(tagResponse.data)
-    //         tagResponse.data.forEach((category: any) => {
-    //             const createdAt = new Date(category.createdAt);
-    //             const month = createdAt.getMonth(); // Ayları 0'dan başlatır (0: Ocak, 11: Aralık)
-    //             monthlyTagCounts[month]++;
-    //         });
-    //
-    //     }
-    //     setTagData([{data: monthlyTagCounts}]);
-    // }
-
     const primary = `hsl(${theme?.cssVars[mode === "dark" ? "dark" : "light"].primary})`;
     const warning = `hsl(${theme?.cssVars[mode === "dark" ? "dark" : "light"].warning})`;
-    // const success = `hsl(${theme?.cssVars[mode === "dark" ? "dark" : "light"].success})`;
-    // const info = `hsl(${theme?.cssVars[mode === "dark" ? "dark" : "light"].info})`;
 
     const tabsTrigger = [
         {

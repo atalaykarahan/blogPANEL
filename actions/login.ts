@@ -21,6 +21,7 @@ export const loginAction = async (
             redirectTo: DEFAULT_LOGIN_REDIRECT,
         });
     } catch (error) {
+        console.error('loginaction;', error);
         if (error instanceof AuthError) {
             switch (error.type) {
                 case "CredentialsSignin":

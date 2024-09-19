@@ -76,6 +76,7 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
 
                     // Yanıt durumunu kontrol et
                     if (!response.ok) {
+                        console.error('auth credentials failed response', response);
                         return null;
                     }
 
