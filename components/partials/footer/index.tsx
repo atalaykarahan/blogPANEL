@@ -3,14 +3,21 @@ import {useSidebar, useThemeStore} from "@/store";
 import {cn} from "@/lib/utils";
 import FooterLayout from "./footer-layout";
 import {useMounted} from "@/hooks/use-mounted";
+import {useMediaQuery} from "@/hooks/use-media-query";
+import MobileFooter from "./mobile-footer";
 
 const Footer = () => {
     const {collapsed, sidebarType} = useSidebar();
     const {layout, footerType} = useThemeStore();
     const mounted = useMounted();
+    const isMobile = useMediaQuery("(min-width: 768px)");
 
     if (!mounted) {
         return null;
+    }
+
+    if (!isMobile && sidebarType === "module") {
+        return <MobileFooter/>;
     }
 
     if (footerType === "hidden") {
